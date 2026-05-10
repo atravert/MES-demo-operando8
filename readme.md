@@ -7,9 +7,13 @@ datasets using SpectroChemPy.
 
 Click one of the badges below to open the notebook (with or without output) directly in Colab:
 
-[![Open the botebook with output in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/atravert/MES-demo-operando8/blob/main/MES_demo-operando8.ipynb)
+Click one of the badges below to open the notebook (with or without output) directly in Colab:
 
-[![Open the botebook with output in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/atravert/MES-demo-operando8/blob/main/MES_demo-operando8_cleared.ipynb)
+With outpout:
+[![Open the notebook with output in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/atravert/MES-demo-operando8/blob/main/MES_demo-operando8.ipynb)
+
+With cleared output:
+[![Open the notebook without output in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/atravert/MES-demo-operando8/blob/main/MES_demo-operando8_cleared.ipynb)
 
 ## history
 
