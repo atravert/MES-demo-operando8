@@ -17,5 +17,5 @@ With cleared output:
 
 ## history
 
-1/10/2026: initial release
+10/5/2026: initial release
 
