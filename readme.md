@@ -1,7 +1,6 @@
 # MES demo 
 
-This repository  notebooks demonstrating Phase-Sensitive Detection (PSD), denoising in the time domain, and CP decomposition on two experimental 
-datasets using SpectroChemPy. 
+This repository contains notebooks illustrating data processing of Modulation Excitation Spectroscopy, including (i) Phase-Sensitive Detection (PSD), (ii) denoising in the time domain, and (iii) CP decomposition using SpectroChemPy.
 
 ## 🚀 Run in Google Colab
 
