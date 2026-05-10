@@ -12,18 +12,13 @@
 #
 # %%
 import numpy as np
-import traitlets as tr
-from numpy.random import RandomState
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
-from matplotlib.patches import Polygon
-from matplotlib.collections import PatchCollection
+
 import re
 from datetime import datetime, timedelta
 import os
-import tensorly as tl
+from datetime import timezone
 
-from typing import Union, Sequence
+from typing import Union
 
 import spectrochempy as scp
 from spectrochempy import NDDataset, Coord, CoordSet
@@ -63,55 +58,72 @@ def read_raman_raw(filename):
     return out
 
 
-
 def read_xas(dir_path):
-
     dates = []
     timestamps = []
     data = []
     energies = []
 
-    # read files in the directory
-    for filename in os.listdir(dir_path):
-        if filename.endswith('.txt'):
+    # read in determinsituc order
+    for filename in sorted(os.listdir(dir_path)):
+        if filename.endswith(".txt"):
+            filepath = os.path.join(dir_path, filename)
 
             data_ = []
             meta_ = {}
 
-            with open(dir_path+'/'+filename, 'r') as file:
+            with open(filepath, "r") as file:
                 for line in file:
                     line = line.strip()
-                    if line.startswith('#'):
-                        key_value = re.split(':|=', line[1:], 1  )
+
+                    if not line:
+                        continue
+
+                    if line.startswith("#"):
+                        key_value = re.split(":|=", line[1:], 1)
                         if len(key_value) == 2:
                             meta_[key_value[0].strip()] = key_value[1].strip()
                     else:
                         data_.append([float(x) for x in line.split()])
 
-                hdf_file = meta_['Data from HDF File']
-                date_start = datetime.strptime(meta_['Time at start'], '%Y-%m-%d %H:%M:%S.%f')
+            date_start = datetime.strptime(
+                meta_["Time at start"],
+                "%Y-%m-%d %H:%M:%S.%f"
+            ).replace(tzinfo=timezone.utc)
 
-                date = date_start + timedelta(seconds=float(meta_['Time from start (seconds)']))
-                dates.append(date)
-                timestamps.append(date.timestamp())
-                data_ = np.array(data_)
-                data.append(data_[:,1])
-                energies.append(data_[:,0])
+            date = date_start + timedelta(
+                seconds=float(meta_["Time from start (seconds)"])
+            )
 
-    # check that all energies are the same
+            dates.append(date)
+            timestamps.append(date.timestamp())
+
+            data_ = np.array(data_)
+            energies.append(data_[:, 0])
+            data.append(data_[:, 1])
+
+    if len(data) == 0:
+        raise ValueError(f"No .txt files found in {dir_path}")
+
     energies = np.array(energies)
-    if np.count_nonzero(energies - energies[0]):
-        raise ValueError('Inconsistent energy values in the files')
-
-
     data = np.array(data)
+    timestamps = np.array(timestamps)
+
+    # rank by timestamp
+    order = np.argsort(timestamps)
+    timestamps = timestamps[order]
+    data = data[order]
+    energies = energies[order]
+
+    # check energies 
+    if not np.allclose(energies, energies[0]):
+        raise ValueError("Inconsistent energy values in the files")
 
     out = NDDataset(data)
-    out.name = dir_path.split('/')[-2]
-    out.title = 'absorbance'
-    out.units = 'absorbance'
-    out.x = Coord(energies[0], title='energy', units='eV')
-    out.y = Coord(timestamps, title='timestamp', units='s')
+    out.name = os.path.basename(os.path.dirname(os.path.normpath(dir_path)))
+    out.title = "absorbance"
+    out.units = "absorbance"
+    out.x = Coord(energies[0], title="energy", units="eV")
+    out.y = Coord(timestamps, title="timestamp", units="s")
 
     return out
-
