@@ -5,9 +5,11 @@ datasets using SpectroChemPy.
 
 ## 🚀 Run in Google Colab
 
-Click the badge below to open the notebook directly in Colab:
+Click one of the badges below to open the notebook (with or without output) directly in Colab:
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/atravert/psd_raman_hoyer/blob/main/notebook_raman_hoyer.ipynb)
+[![Open the botebook with output in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/atravert/MES-demo-operando8/blob/main/MES_demo-operando8.ipynb)
+
+[![Open the botebook with output in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/atravert/MES-demo-operando8/blob/main/MES_demo-operando8_cleared.ipynb)
 
 ## history
 
