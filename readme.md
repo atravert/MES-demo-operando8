@@ -6,8 +6,6 @@ This repository contains notebooks illustrating data processing of Modulation Ex
 
 Click one of the badges below to open the notebook (with or without output) directly in Colab:
 
-Click one of the badges below to open the notebook (with or without output) directly in Colab:
-
 With outpout:
 [![Open the notebook with output in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/atravert/MES-demo-operando8/blob/main/MES_demo-operando8.ipynb)
 
